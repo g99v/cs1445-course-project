@@ -1,0 +1,92 @@
+.schedule-board {
+  display: grid;
+  grid-template-columns: 90px repeat(5, minmax(180px, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+  min-width: 1100px;
+}
+
+.schedule-board-wrapper {
+  overflow-x: auto;
+}
+
+.schedule-corner,
+.schedule-day-header {
+  background: #f1f3f5;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.schedule-time-column {
+  position: relative;
+  border-radius: var(--radius-lg);
+}
+
+.schedule-time-label {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.schedule-day-column {
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #ffffff 0,
+      #ffffff 59px,
+      #eef1f4 60px
+    );
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  min-height: 720px;
+  box-shadow: var(--shadow-sm);
+}
+
+.schedule-hour-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #dfe3e8;
+}
+
+.schedule-event {
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  background: var(--course-color, #0d6efd);
+  color: #fff;
+  border-radius: 0.75rem;
+  padding: 0.5rem 0.65rem;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  font-size: 0.85rem;
+}
+
+.schedule-event strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.schedule-event-meta {
+  line-height: 1.25;
+  opacity: 0.95;
+}
+
+.schedule-event-small {
+  font-size: 0.78rem;
+}
+
+.lecture-card {
+  border: 0;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/css/base.css" />
+  <link rel="stylesheet" href="/css/auth.css" />
+  <script src="/js/page-transition.js"></script>
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-panel">
+      <span class="auth-panel-badge">CS1445 Project</span>
+      <h1 class="auth-panel-title">StudyFlow Planner</h1>
+      <p class="auth-panel-text">
+        Organize your courses, track your tasks, and generate your lecture schedule in one site.
+      </p>
+    </section>
+
+    <section class="auth-card">
+      <div class="auth-brand">Welcome Back</div>
+      <h2 class="auth-title h3">Login to your account</h2>
+      <p class="auth-subtitle">Enter your email and password to continue.</p>
+
+      <form action="/auth/login" method="POST" class="auth-form">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder="student@example.com"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+
+      <div class="auth-note">
+        Use your account to access the dashboard, courses, tasks, and weekly schedule pages.
+      </div>
+
+      <p class="auth-footer">
+        Don’t have an account?
+        <a href="/register">Create one here</a>
+      </p>
+    </section>
+  </main>
+</body>
+</html>

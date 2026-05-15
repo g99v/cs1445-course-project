@@ -1,0 +1,12 @@
+.course-grid .course-card {
+  height: 100%;
+}
+
+.course-title {
+  margin-bottom: 0.35rem;
+}
+
+.course-semester {
+  color: var(--muted);
+  margin-bottom: 0;
+}

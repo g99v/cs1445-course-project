@@ -1,0 +1,13 @@
+.task-grid .task-card {
+  height: 100%;
+}
+
+.task-description {
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.task-course {
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,72 @@
+.app-header {
+  background: var(--header-bg);
+  color: #fff;
+  padding: 1rem 0;
+}
+
+.app-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.app-nav-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.section-block {
+  margin-bottom: 1.5rem;
+}
+
+.content-card {
+  border: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .app-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-nav-actions {
+    justify-content: flex-start;
+  }
+}
+.app-nav-actions .btn {
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.app-nav-actions .btn:hover {
+  transform: translateY(-1px);
+}
+
+.content-card,
+.summary-card,
+.board-card,
+.course-card,
+.task-card,
+.lecture-card {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.content-card:hover,
+.summary-card:hover,
+.board-card:hover,
+.course-card:hover,
+.task-card:hover,
+.lecture-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
