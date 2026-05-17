@@ -62,7 +62,7 @@ To run this project locally, follow these steps:
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/g99v/cs1445-course-project.git
    cd cs1445-course-project-main
    ```
 2. **Install dependencies:**
@@ -76,7 +76,7 @@ To run this project locally, follow these steps:
    MONGO_URI=mongodb://localhost:27017/studyflow
    SESSION_SECRET=your_secret_key_here
    ```
-   *(Note: Make sure MongoDB is installed and running on your system, or use a MongoDB Atlas URI).*
+   *(Note: Make sure MongoDB is installed and running on your system).*
 4. **Run the server:**
    ```bash
    npm start
@@ -88,11 +88,14 @@ To run this project locally, follow these steps:
 ---
 
 ## Screenshots
-*(Replace these placeholders with actual screenshots of the application)*
+- **Register Page:** `![Register Screenshot](Screenshots\register.png)`
+- **Dashboard View:** `![Dashboard Screenshot](Screenshots\dashboard.png)`
+- **Course Management:** `![Courses Screenshot](Screenshots\courses.png)`
+- **Task Management:** `![Tasks Screenshot](Screenshots\tasks.png)`
+- **Schedule Builder:**
+  - ![Schedule Screenshot 1](Screenshots/schedule1.png)
+  - ![Schedule Screenshot 2](Screenshots/schedule2.png)
 
-- **Dashboard View:** `![Dashboard Screenshot](path/to/screenshot.png)`
-- **Schedule Builder:** `![Schedule Screenshot](path/to/screenshot.png)`
-- **Task Management:** `![Tasks Screenshot](path/to/screenshot.png)`
 
 ---
 
