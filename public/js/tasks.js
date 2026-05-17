@@ -158,66 +158,133 @@ class TaskManager {
     }
 
     renderTasks(tasks) {
-        if (!tasks.length) {
-            this.tasksContainer.innerHTML = `
-      <div class="col-12">
-        <div class="empty-state">No tasks added yet.</div>
-      </div>
-    `;
-            return;
-        }
+        const statuses = ['Pending', 'In Progress', 'In Review', 'Completed'];
+        
+        const groupedTasks = statuses.reduce((acc, status) => {
+            acc[status] = tasks.filter(task => task.status === status);
+            return acc;
+        }, {});
 
-        this.tasksContainer.innerHTML = tasks
-            .map((task) => `
-      <div class="col-md-6 col-lg-4">
-        <article class="task-card card" style="--course-color: ${task.courseId?.color || '#0d6efd'};">
+        this.tasksContainer.innerHTML = statuses.map(status => {
+            const columnTasks = groupedTasks[status];
+            return `
+            <div class="kanban-column">
+                <div class="kanban-column-header">
+                    <span>${status}</span>
+                    <span class="badge bg-secondary rounded-pill">${columnTasks.length}</span>
+                </div>
+                <div class="kanban-dropzone" data-status="${status}">
+                    ${columnTasks.map(task => this.renderTaskCard(task)).join('')}
+                </div>
+            </div>
+            `;
+        }).join('');
+
+        this.bindDragAndDropEvents();
+    }
+
+    renderTaskCard(task) {
+        return `
+        <article class="task-card card kanban-card" draggable="true" data-id="${task._id}" data-task='${JSON.stringify(task).replace(/'/g, "&apos;")}' style="--course-color: ${task.courseId?.color || '#0d6efd'};">
           <div class="card-body">
             <div class="d-flex justify-content-between align-items-start mb-2">
               <span class="badge bg-dark">${task.urgencyBucket}</span>
-
               <div class="card-actions">
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-primary"
-                  data-action="edit"
-                  data-task='${JSON.stringify(task).replace(/'/g, "&apos;")}'
-                >
-                  Edit
-                </button>
-
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-danger"
-                  data-action="delete"
-                  data-id="${task._id}"
-                >
-                  Delete
-                </button>
+                <button type="button" class="btn btn-sm btn-outline-primary" data-action="edit" data-task='${JSON.stringify(task).replace(/'/g, "&apos;")}'>Edit</button>
+                <button type="button" class="btn btn-sm btn-outline-danger" data-action="delete" data-id="${task._id}">Delete</button>
               </div>
             </div>
-
             <h3 class="h5">${task.title}</h3>
-
             <p class="task-course d-flex align-items-center gap-2">
               <span class="course-dot" style="--course-color: ${task.courseId?.color || '#0d6efd'};"></span>
               ${task.courseId?.code || 'No course'}
             </p>
-
-            <p class="task-description clamp-2">
-              ${task.description || 'No description provided.'}
-            </p>
-
+            <p class="task-description clamp-2">${task.description || 'No description provided.'}</p>
             <ul class="meta-list small">
               <li><strong>Due:</strong> ${new Date(task.dueDate).toLocaleDateString()}</li>
               <li><strong>Priority:</strong> ${task.priority}</li>
-              <li><strong>Status:</strong> ${task.status}</li>
               <li><strong>Hours:</strong> ${task.estimatedHours}</li>
             </ul>
           </div>
         </article>
-      </div>
-    `)
-            .join('');
+        `;
+    }
+
+    bindDragAndDropEvents() {
+        const cards = document.querySelectorAll('.kanban-card');
+        const dropzones = document.querySelectorAll('.kanban-dropzone');
+
+        cards.forEach(card => {
+            card.addEventListener('dragstart', () => {
+                card.classList.add('dragging');
+            });
+            card.addEventListener('dragend', () => {
+                card.classList.remove('dragging');
+            });
+        });
+
+        dropzones.forEach(zone => {
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+                zone.classList.add('drag-over');
+            });
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('drag-over');
+            });
+            zone.addEventListener('drop', async e => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+                
+                const card = document.querySelector('.dragging');
+                if (!card) return;
+
+                const currentZone = card.closest('.kanban-dropzone');
+                if (currentZone === zone) return; // Dropped in same column
+
+                zone.appendChild(card);
+                this.updateColumnCounts();
+
+                const newStatus = zone.dataset.status;
+                const task = JSON.parse(card.dataset.task);
+                
+                const updateData = {
+                    taskId: task._id,
+                    courseId: task.courseId?._id || task.courseId,
+                    title: task.title,
+                    description: task.description,
+                    dueDate: task.dueDate,
+                    priority: task.priority,
+                    status: newStatus,
+                    estimatedHours: task.estimatedHours
+                };
+
+                task.status = newStatus;
+                card.dataset.task = JSON.stringify(task).replace(/'/g, "&apos;");
+                
+                // Also update the edit button's data-task
+                const editBtn = card.querySelector('[data-action="edit"]');
+                if (editBtn) {
+                    editBtn.dataset.task = card.dataset.task;
+                }
+
+                try {
+                    await this.apiClient.updateTask(updateData);
+                    document.dispatchEvent(new CustomEvent('task:changed'));
+                } catch (err) {
+                    this.showMessage('Failed to update task status.', 'danger');
+                    this.loadTasks(); // Revert UI
+                }
+            });
+        });
+    }
+
+    updateColumnCounts() {
+        const columns = document.querySelectorAll('.kanban-column');
+        columns.forEach(col => {
+            const count = col.querySelectorAll('.kanban-card').length;
+            const badge = col.querySelector('.badge');
+            if (badge) badge.textContent = count;
+        });
     }
 
     showMessage(message, type) {
