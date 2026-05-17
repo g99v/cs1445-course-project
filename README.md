@@ -88,14 +88,22 @@ To run this project locally, follow these steps:
 ---
 
 ## Screenshots
-- **Register Page:** `![Register Screenshot](Screenshots\register.png)`
-- **Dashboard View:** `![Dashboard Screenshot](Screenshots\dashboard.png)`
-- **Course Management:** `![Courses Screenshot](Screenshots\courses.png)`
-- **Task Management:** `![Tasks Screenshot](Screenshots\tasks.png)`
-- **Schedule Builder:**
-  - ![Schedule Screenshot 1](Screenshots/schedule1.png)
-  - ![Schedule Screenshot 2](Screenshots/schedule2.png)
 
+- **Register Page**  
+  ![Register Screenshot](Screenshots/register.png)
+
+- **Dashboard View**  
+  ![Dashboard Screenshot](Screenshots/dashboard.png)
+
+- **Course Management**  
+  ![Courses Screenshot](Screenshots/courses.png)
+
+- **Task Management**  
+  ![Tasks Screenshot](Screenshots/tasks.png)
+
+- **Schedule Builder**  
+  ![Schedule Screenshot 1](Screenshots/schedule1.png)  
+  ![Schedule Screenshot 2](Screenshots/schedule2.png)
 
 ---
 
