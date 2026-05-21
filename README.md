@@ -63,7 +63,7 @@ To run this project locally, follow these steps:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/g99v/cs1445-course-project.git
-   cd cs1445-course-project-main
+   cd cs1445-course-project
    ```
 2. **Install dependencies:**
    ```bash
